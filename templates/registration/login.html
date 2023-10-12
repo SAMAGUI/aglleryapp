@@ -1,0 +1,53 @@
+{% extends 'base.html' %} 
+{% load static %} 
+{% block content %} 
+{% if not request.user.is_authenticated %}
+<!-- Main Start -->
+<main>
+  <!-- Services -->
+  <section class="container my-4">
+    <h1 class="text-center mb-4 section-heading border-bottom pb-2">Login</h1>
+    <div class="row">
+      <div class="col-md-6 offset-3">
+        {% if msg %}
+        <p class="text-success">{{msg}}</p>
+        {% endif %}
+        <div class="card">
+          <div class="card-body">
+            <form method="post" action="">
+              {% csrf_token %}
+			  <div class="row mb-3">
+				<label for="username" class="form-label">Nom d'utilisateur</label>
+				<div class="">
+				  <input type="text" class="form-control" id="username" name="username">
+				</div>
+			  </div>
+			  <div class="row mb-3">
+				<label for="password" class="form-label">Mot de passe</label>
+                  <div>
+
+                    <input type="password" class="form-control" name="password" id="password">
+                  </div>
+			  </div>
+              <div class="text-end">
+                <button type="submit" class="btn btn-primary">
+                  Connexion
+                </button>
+                <button type="reset" class="btn btn-warning">Annuler</button>
+              </div>
+            </form>
+            <p>
+              Vous n'avez pas un compte? <a href="{% url 'signup' %}">Inscrivez-vous</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End -->
+</main>
+<!-- End -->
+{% else %}
+<p>Already LoggedIn</p>
+{% endif %} 
+{% endblock %}

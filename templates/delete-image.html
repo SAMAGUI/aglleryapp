@@ -1,0 +1,30 @@
+{% extends 'base.html' %} {% load static %} {% load widget_tweaks %} 
+{% block content %}
+<!-- Main Start -->
+<main>
+  <section class="container my-4">
+    <h1 class="text-center mb-4 section-heading border-bottom pb-2">Retirer une photo de l'album</h1>
+    <div class="row">
+      <div class="col-md-6 offset-3">
+        <div class="card">           
+          <div class="card-body">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+              <div class="">
+                <h3 class="text-center mb-4 pb-2">Voulez-vous supprimer cette photo ?</h3>
+              </div>
+              <div class="text-end">
+                <button type="submit" class="btn btn-danger">Oui</button>
+                <a href="{% url 'album-detail' album.id %}" class="btn btn-primary">Non</a>
+              </div>
+            </form>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- End -->
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %} 
+{% block content %}
+<!-- Main Start -->
+<main>
+  <!-- Services -->
+  <section class="container my-4">
+    <h1 class="text-center mb-4 section-heading border-bottom pb-2">Albums</h1>
+    <div class="text-end mb-2">
+      <a href="{% url 'add-album' %}" class="btn btn-primary">Ajouter</a>
+    </div>
+    <div class="row">
+        {% for album in albums %}
+        <div class="col-xxl-3 col-xl-4 col-sm-6">
+            <div class="card card-body">
+                <div class="d-flex mb-4 align-items-center">
+                    <div class="flex-shrink-0">
+                        <img src="{{album.logo.url}}" alt="200x200" width="100" class="rounded" />
+                        
+                    </div>
+                    <div class="flex-grow-1 ms-2">
+                        <h5 class="card-title mb-1">{{album.titre}}</h5>
+                        <p class="text-muted mb-0">{{album.description}}</p>
+                    </div>
+                </div>
+                <h6 class="mb-1">{{album.nb_photo}} photos</h6>
+                <!-- <p class="card-text text-muted">Expense Account</p> -->
+                <a href="{% url 'album-detail' album.id %}" class="btn btn-primary btn-sm">Voire</a>
+            </div>
+        </div><!-- end col -->
+        {% empty %}
+        <h2 class="text-center mb-4 section-heading">Vous n'avez aucun album. Veuillez ajouter des albums</h2>
+        {% endfor %}
+    </div>
+  </section>
+</main>
+<!-- End -->
+{% endblock %}
+{% block javascripts %}
+
+{% endblock javascripts %}

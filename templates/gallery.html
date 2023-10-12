@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load social_share %}
+{% block content %}
+<!-- Main Start -->
+<main>
+  <!-- Services -->
+  <section class="container my-4">
+    <h1 class="text-center mb-4 section-heading border-bottom pb-2">Galérie</h1>
+    <div class="text-end mb-2">
+      <a href="{% url 'add-photo' %}" class="btn btn-primary">Ajouter</a>
+    </div>
+    <div class="row">
+      <!-- {% for gallery in gallerys %}
+      <div class="col-md-4 mb-4">
+        <div class="card">
+          <img
+            src="{{gallery.file.url}}"
+            class="card-img-top"
+            alt="{{gallery.title}}"
+          />
+          <div class="card-body">
+            <h5 class="card-title">{{gallery.title}}</h5>
+            <p class="card-text">{{gallery.detail}}</p>
+            
+          </div>
+        </div>
+      </div>
+      {% endfor %} -->
+    </div>
+    <div class="row">
+        <div class="row gallery-wrapper">
+            {% for gimg in gallerys %}
+            <div class="element-item col-xxl-3 col-xl-4 col-sm-6 project designing development"  data-category="designing development">
+
+                <div class="gallery-box card">
+                    <div class="gallery-container">
+                        <a class="image-popup" href="{{gimg.file.url}}" title="">
+                            <img class="gallery-img img-fluid mx-auto" src="{{gimg.file.url}}" alt="" />
+                            <div class="gallery-overlay">
+                                <h5 class="overlay-caption">{{gimg.name}}</h5>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="box-content">
+                        <div class="d-flex align-items-center mt-1">
+                            <div class="flex-grow-1 text-muted"> <a href="{% url 'delete-photo' gimg.id %}" class="btn btn-outline-danger text-truncate confirm-delete">
+                                <i class="ri-delete-bin-fill"></i>
+                            </a>
+                            </div>
+                            <div class="flex-shrink-0">
+                                <div class="d-flex gap-3">
+                                    <!-- Alignment options -->
+                                    <div class="btn-group">
+                                        <button class="btn btn-outline" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="ri-share-fill text-muted align-bottom me-1"></i>
+                                        </button>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <li>{% post_to_facebook gimg.file.url "Post to Facebook!" %}</li>
+                                            <li>{% post_to_twitter gimg.file.url "Post to Twitter" %}</li>
+                                            <li>{% post_to_linkedin gimg.file.url %}</li>
+                                            <li>{% send_email object.title "New Song: {{object.title}}. Check it out!" object_or_url "Share via email" %}</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end col -->
+            {% empty %}
+                <h2 class="text-center mb-4 section-heading">Votre galérie est vide. Veuillez ajouter des images</h2>
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+  </section>
+
+</main>
+<!-- End -->
+{% endblock %}
+{% block javascripts %}
+<script>
+    socialButtons = document.querySelectorAll('.dropdown-menu li > a');
+    socialButtons.forEach(node => {
+        node.classList.add('dropdown-item');
+    });
+</script>
+{% endblock javascripts %}

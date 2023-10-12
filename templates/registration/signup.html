@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% block content %}
+
+	{% if not request.user.is_authenticated %}
+		<!-- Main Start -->
+		<main>
+			<!-- Services -->
+			<section class="container my-4">
+				<h1 class="text-center mb-4 section-heading border-bottom pb-2">Register</h1>
+				<div class="row">
+					<div class="col-md-6 offset-3">
+						{% if msg %}
+						<p class="text-success">{{msg}}</p>
+						{% endif %}
+						<div class="card">
+							<div class="card-body">
+							<form method="post" action="">
+								{% csrf_token %} 
+								{% for field in form %}
+								<div class="form-group{% if field.errors %} has-error{% endif %} mb-3">
+								<label for="{{ field.id_for_label }}" class="col-form-label"
+									>{{ field.label }}</label>
+								{% render_field field class="form-control " %} 
+								{% for error in field.errors %}
+								<p class="help-block">{{ error }}</p>
+								{% endfor %}
+								</div>
+								{% endfor %}
+								<div class="text-end">
+								<button type="submit" class="btn btn-primary">
+									Enregister
+								</button>
+								<button type="reset" class="btn btn-warning">Annuler</button>
+								</div>
+							</form>
+							<p>Si vous avez déjà un compte, svp <a href="{% url 'login' %}">connectez-vous</a></p>
+							</div>
+						</div>					
+						
+					</div>
+				</div>
+			</section>
+			<!-- End -->
+		</main>
+		<!-- End -->
+	{% else %}
+	<p>Already LoggedIn</p>
+	{% endif %}
+{% endblock %}
